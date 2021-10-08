@@ -1,0 +1,38 @@
+name: ROS melodic CI
+on: [push]
+jobs:    
+  build:
+    runs-on: ubuntu-18.04
+    container: ros:melodic-ros-base
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install catkin & package dependencies
+        run: |
+          g++ --version
+          cd / && ./ros_entrypoint.sh
+          apt-get update
+          apt-get install -y python-pip
+          apt-get install -y ros-melodic-catkin python-catkin-tools
+          apt-get install -y ros-melodic-cv-bridge
+          apt-get install -y ros-melodic-roslint
+          apt-get install -y ros-melodic-diagnostics
+          apt-get install -y libx11-dev
+          apt-get install -y libyaml-cpp-dev
+          apt-get install -y libspnav-dev
+          mkdir -p ~/ros_catkin_ws/src
+          cd ~/ros_catkin_ws/src
+          git clone https://github.com/wjwwood/serial
+          git clone https://github.com/ros-perception/image_common
+          git clone https://github.com/ros-drivers/joystick_drivers
+          git clone https://github.com/ros-drivers/rosserial
+      - name: Install external packages
+        run: |
+          cd ~/ros_catkin_ws
+          /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_make" 
+          /bin/bash -c "source ~/ros_catkin_ws/devel/setup.bash" 
+      - name: Build package
+        run: |
+          cd ~
+          cp -r $GITHUB_WORKSPACE .
+          cd ~/learning_tf
+          /bin/bash -c "source /opt/ros/melodic/setup.bash && source ~/ros_catkin_ws/devel/setup.bash && catkin_make" 
