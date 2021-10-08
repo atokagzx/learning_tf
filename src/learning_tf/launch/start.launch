@@ -1,0 +1,11 @@
+ <launch>
+    <param name="/radius"  value="1"  />
+    <param name="/speed"  value="1"  />
+
+    <node pkg="turtlesim" type="turtlesim_node" name="sim"/>
+    <node pkg="learning_tf" type="tf_node" args="/turtle1" name="turtle1_tf_broadcaster" />
+    <node pkg="learning_tf" type="tf_node" args="/turtle2" name="turtle2_tf_broadcaster" />
+    <node pkg="learning_tf" type="follow_node" name="listener" />
+    <node pkg="learning_tf" type="frame_tf_broadcaster" name="broadcaster_frame" />
+    <node pkg="turtlesim" type="turtle_teleop_key" name="teleop" output="screen"/>
+  </launch>

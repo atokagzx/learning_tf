@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>learning_tf</name>
+  <version>0.0.1</version>
+  <description>The learning_tf package</description>
+  <maintainer email="yar21sav@gmail.com">avele</maintainer>
+  <license>None</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+
+</package>
